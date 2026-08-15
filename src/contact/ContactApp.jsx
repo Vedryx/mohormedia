@@ -1,17 +1,8 @@
-import { useState } from 'react'
-import BookingModal from './BookingModal.jsx'
 import logo from '../assets/mohor-logo.png'
 
 const ArrowIcon = () => (
   <svg className="cta-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M5 12h14M13 6l6 6-6 6" />
-  </svg>
-)
-
-const CalendarIcon = () => (
-  <svg className="cta-lead" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="3" y="4.5" width="18" height="17" rx="2" />
-    <path d="M16 2.5v4M8 2.5v4M3 10h18" />
   </svg>
 )
 
@@ -32,38 +23,29 @@ const PHONE_TEL = '+918855878941'
 const WHATSAPP = '918855878941'
 
 const ACTIONS = [
-  { action: 'book', variant: 'primary', Icon: CalendarIcon, title: 'Book a 15-minute call', sub: 'Pick a slot that suits you', subUpper: true },
-  { href: `tel:${PHONE_TEL}`, variant: 'ghost', Icon: PhoneIcon, title: 'Call now', sub: PHONE_DISPLAY, tabular: true },
+  { href: `tel:${PHONE_TEL}`, variant: 'primary', Icon: PhoneIcon, title: 'Call now', sub: PHONE_DISPLAY, tabular: true },
   { href: `https://wa.me/${WHATSAPP}`, external: true, variant: 'ghost', Icon: WhatsAppIcon, title: 'Message on WhatsApp', sub: 'Usually replies same day', subUpper: true },
 ]
 
-function ActionInner({ Icon, title, sub, subUpper, tabular }) {
+function ContactAction({ href, external, variant, Icon, title, sub, subUpper, tabular }) {
   return (
-    <>
+    <a
+      className={`cta cta--${variant}`}
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
       <Icon />
       <span className="cta-body">
         <span className="cta-title">{title}</span>
         <span className={`cta-sub${subUpper ? ' cta-sub--upper' : ''}${tabular ? ' cta-sub--tabular' : ''}`}>{sub}</span>
       </span>
       <ArrowIcon />
-    </>
-  )
-}
-
-function ContactAction({ href, external, action, onBook, ...rest }) {
-  const cls = `cta cta--${rest.variant}`
-  if (action === 'book') {
-    return <button type="button" className={cls} onClick={onBook}><ActionInner {...rest} /></button>
-  }
-  return (
-    <a className={cls} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
-      <ActionInner {...rest} />
     </a>
   )
 }
 
 export default function ContactApp() {
-  const [booking, setBooking] = useState(false)
   return (
     <main className="stage">
       <section className="card">
@@ -79,8 +61,8 @@ export default function ContactApp() {
         </div>
 
         <div className="actions">
-          {ACTIONS.map((a, i) => (
-            <ContactAction key={a.href || a.action || i} {...a} onBook={() => setBooking(true)} />
+          {ACTIONS.map((a) => (
+            <ContactAction key={a.href} {...a} />
           ))}
         </div>
 
@@ -99,8 +81,6 @@ export default function ContactApp() {
         <span className="foot-tick" />
         <span className="foot-url">mohormedia.com</span>
       </footer>
-
-      <BookingModal open={booking} onClose={() => setBooking(false)} />
     </main>
   )
 }
