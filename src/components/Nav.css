@@ -1,0 +1,266 @@
+.mm-nav {
+  position: sticky;
+  top: 0;
+  z-index: 600;
+  background: var(--mm-cream-nav);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--mm-olive-a08);
+  transition: box-shadow 0.3s ease;
+}
+
+.mm-nav.is-stuck {
+  box-shadow: 0 6px 30px rgba(34, 38, 26, 0.1);
+}
+
+.mm-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding-block: 14px;
+}
+
+.mm-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font: 700 22px var(--mm-font-display);
+  letter-spacing: -0.01em;
+  color: var(--mm-ink);
+}
+
+.mm-nav__brand:hover {
+  color: var(--mm-ink);
+}
+
+.mm-nav__brand img {
+  width: 46px;
+  height: 46px;
+}
+
+.mm-nav__brand .mm-mark--round {
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px #fff, 0 2px 10px rgba(34, 38, 26, 0.14);
+}
+
+.mm-nav__brand .mm-mark--free {
+  width: auto;
+  height: 52px;
+  object-fit: contain;
+}
+
+.mm-nav__brand-accent {
+  color: var(--mm-saffron);
+}
+
+.mm-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.mm-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font: 500 16px var(--mm-font-body);
+}
+
+/* Primary conversion point. Saffron rather than olive so it separates from the
+   nav links, and always in motion: an expanding halo ring, a sheen that sweeps
+   across on a loop, a twinkling spark and a drifting arrow.
+
+   Layering note: the sheen must sit ABOVE the button's background but BELOW the
+   label, so it takes z-index 1 while the three spans take z-index 2. A negative
+   z-index would put it behind the background and make it invisible. The halo
+   rides on the button's own box-shadow rather than a pseudo-element, since
+   `overflow: hidden` (which keeps the sheen inside the pill) would clip a
+   child, but never the element's own shadow. */
+.mm-nav__cta {
+  position: relative;
+  overflow: hidden;
+  gap: 9px;
+  font-size: 16px;
+  padding: 15px 26px;
+  animation: mm-cta-halo 3s ease-out infinite;
+}
+
+/* Sheen sweep — idles for most of the cycle, then crosses quickly */
+.mm-nav__cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 42%;
+  transform: skewX(-18deg) translateX(-260%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: mm-cta-sheen 3s ease-in-out infinite;
+}
+
+.mm-nav__cta-spark,
+.mm-nav__cta-label,
+.mm-nav__cta-arrow {
+  position: relative;
+  z-index: 2;
+}
+
+.mm-nav__cta-spark {
+  font-size: 13px;
+  animation: mm-cta-twinkle 3s ease-in-out infinite;
+}
+
+.mm-nav__cta-arrow {
+  font-size: 15px;
+  animation: mm-cta-nudge 3s ease-in-out infinite;
+}
+
+/* On hover the loop steps aside so the lift and deeper shadow read cleanly */
+.mm-nav__cta:hover {
+  animation: none;
+  box-shadow: 0 12px 28px rgba(226, 145, 63, 0.45);
+}
+
+.mm-nav__cta:hover::before {
+  animation-duration: 1.1s;
+}
+
+.mm-nav__cta:hover .mm-nav__cta-arrow {
+  animation: none;
+  transform: translate(3px, -3px);
+}
+
+@keyframes mm-cta-halo {
+  0% {
+    box-shadow: 0 6px 18px rgba(226, 145, 63, 0.32), 0 0 0 0 rgba(226, 145, 63, 0.5);
+  }
+  70% {
+    box-shadow: 0 6px 18px rgba(226, 145, 63, 0.32), 0 0 0 15px rgba(226, 145, 63, 0);
+  }
+  100% {
+    box-shadow: 0 6px 18px rgba(226, 145, 63, 0.32), 0 0 0 0 rgba(226, 145, 63, 0);
+  }
+}
+
+@keyframes mm-cta-sheen {
+  0% {
+    transform: skewX(-18deg) translateX(-260%);
+  }
+  55%,
+  100% {
+    transform: skewX(-18deg) translateX(420%);
+  }
+}
+
+@keyframes mm-cta-twinkle {
+  0%,
+  55%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.35) rotate(90deg);
+  }
+}
+
+@keyframes mm-cta-nudge {
+  0%,
+  60%,
+  100% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(4px, -4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-nav__cta,
+  .mm-nav__cta::before,
+  .mm-nav__cta-spark,
+  .mm-nav__cta-arrow {
+    animation: none;
+  }
+
+  .mm-nav__cta {
+    box-shadow: 0 6px 18px rgba(226, 145, 63, 0.32);
+  }
+
+  .mm-nav__cta::before {
+    display: none;
+  }
+}
+
+.mm-nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--mm-olive-a28);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mm-nav__toggle span {
+  display: block;
+  width: 18px;
+  height: 1.6px;
+  margin-inline: auto;
+  background: var(--mm-olive);
+  transition: transform 0.3s var(--mm-ease-out);
+}
+
+.mm-nav__toggle[aria-expanded='true'] span:first-child {
+  transform: translateY(3.8px) rotate(45deg);
+}
+
+.mm-nav__toggle[aria-expanded='true'] span:last-child {
+  transform: translateY(-3.8px) rotate(-45deg);
+}
+
+@media (max-width: 980px) {
+  .mm-nav__inner {
+    flex-wrap: wrap;
+  }
+
+  .mm-nav__toggle {
+    display: flex;
+  }
+
+  .mm-nav__menu {
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s var(--mm-ease-out), opacity 0.3s ease,
+      padding 0.4s var(--mm-ease-out);
+  }
+
+  .mm-nav__menu.is-open {
+    max-height: 420px;
+    opacity: 1;
+    padding-block: 10px 20px;
+  }
+
+  .mm-nav__links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 19px;
+  }
+
+  .mm-nav__cta {
+    align-self: flex-start;
+  }
+}

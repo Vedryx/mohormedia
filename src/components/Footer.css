@@ -1,0 +1,160 @@
+.mm-footer {
+  padding: 88px var(--mm-gutter) 40px;
+  background: var(--mm-olive);
+  color: var(--mm-bone);
+}
+
+.mm-footer__grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.1fr;
+  gap: 56px;
+}
+
+.mm-footer__brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.mm-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.mm-footer__brand img {
+  width: 70px;
+  height: 70px;
+}
+
+.mm-footer__brand .mm-mark--round {
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+/* The artwork's own blob is olive, which vanishes against the olive footer, so
+   it sits on a cream plate here — the dark-background counterpart to the white
+   ring the circle-cropped variant gets. */
+.mm-footer__brand .mm-mark--free {
+  width: auto;
+  height: 108px;
+  padding: 12px 16px;
+  border-radius: 20px;
+  background: var(--mm-bone);
+  object-fit: contain;
+}
+
+.mm-footer__deva {
+  font: 600 40px/1.15 var(--mm-font-deva);
+  color: var(--mm-bone);
+}
+
+.mm-footer__wordmark {
+  margin-top: 6px;
+  font: 700 15px var(--mm-font-body);
+  letter-spacing: 0.3em;
+  color: var(--mm-saffron);
+}
+
+.mm-footer__blurb {
+  max-width: 420px;
+  font: 400 18px/1.7 var(--mm-font-body);
+  color: var(--mm-bone-a72);
+}
+
+.mm-footer__socials {
+  display: flex;
+  gap: 14px;
+}
+
+.mm-footer__socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(241, 236, 221, 0.28);
+  border-radius: 50%;
+  color: var(--mm-bone);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.mm-footer__socials a:hover {
+  background: var(--mm-saffron);
+  border-color: var(--mm-saffron);
+  color: var(--mm-bone);
+}
+
+.mm-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mm-footer__col-title {
+  font: 700 13px var(--mm-font-body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mm-saffron);
+}
+
+.mm-footer__col a,
+.mm-footer__static {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font: 400 18px var(--mm-font-body);
+  color: var(--mm-bone-a82);
+}
+
+.mm-footer__col a:hover {
+  color: var(--mm-saffron);
+}
+
+.mm-footer__base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 64px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(241, 236, 221, 0.14);
+  font: 400 16px var(--mm-font-body);
+  color: var(--mm-bone-a55);
+}
+
+.mm-footer__sign {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mm-footer__sign span {
+  color: var(--mm-saffron);
+}
+
+@media (max-width: 1000px) {
+  .mm-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mm-footer {
+    padding-block: 56px 32px;
+  }
+
+  .mm-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .mm-footer__col a,
+  .mm-footer__static,
+  .mm-footer__blurb {
+    font-size: 16px;
+  }
+}

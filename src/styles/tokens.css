@@ -1,0 +1,57 @@
+/* Design tokens lifted from the Mohor Media design canvas. */
+
+:root {
+  /* Palette */
+  --mm-cream: #f6f1e7;
+  --mm-cream-alt: #efebdd;
+  --mm-cream-nav: rgba(240, 236, 222, 0.86);
+  --mm-paper: #fffcf5;
+  --mm-sand: #ded9c7;
+  --mm-olive: #3a4526;
+  --mm-olive-dark: #2c3419;
+  --mm-olive-deep: #2f3820;
+  --mm-ink: #22261a;
+  --mm-ink-soft: #5c6146;
+  --mm-ink-faint: #8a8c74;
+  --mm-saffron: #e2913f;
+  --mm-saffron-deep: #c97b21;
+  --mm-saffron-warm: #e8a020;
+  --mm-bone: #f1ecdd;
+  --mm-bone-soft: #efead9;
+  --mm-sage: #dde4c9;
+  --mm-book-ink: #4a3b1c;
+
+  /* Alpha helpers */
+  --mm-olive-a08: rgba(58, 69, 38, 0.08);
+  --mm-olive-a16: rgba(58, 69, 38, 0.16);
+  --mm-olive-a28: rgba(58, 69, 38, 0.28);
+  --mm-bone-a12: rgba(241, 236, 221, 0.12);
+  --mm-bone-a35: rgba(241, 236, 221, 0.35);
+  --mm-bone-a55: rgba(241, 236, 221, 0.55);
+  --mm-bone-a72: rgba(241, 236, 221, 0.72);
+  --mm-bone-a82: rgba(241, 236, 221, 0.82);
+
+  /* Type */
+  --mm-font-display: 'Familjen Grotesk', 'Hanken Grotesk', sans-serif;
+  --mm-font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --mm-font-serif: 'Playfair Display', Georgia, serif;
+  --mm-font-script: 'Caveat', cursive;
+  --mm-font-deva: 'Baloo 2', 'Familjen Grotesk', sans-serif;
+
+  /* Layout */
+  --mm-max: 1400px;
+  --mm-gutter: 40px;
+  --mm-radius-pill: 100px;
+
+  /* Motion — overridden at runtime by the `motion` site setting */
+  --mm-reveal-distance: 38px;
+  --mm-reveal-duration: 1s;
+  --mm-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --mm-ease-swift: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@media (max-width: 900px) {
+  :root {
+    --mm-gutter: 24px;
+  }
+}

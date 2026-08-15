@@ -1,0 +1,315 @@
+.mm-book {
+  position: relative;
+  overflow: hidden;
+  padding: 104px var(--mm-gutter);
+  background: var(--mm-saffron);
+}
+
+.mm-book__sprig {
+  position: absolute;
+  opacity: 0.28;
+}
+
+.mm-book__sprig--left {
+  left: -30px;
+  bottom: -20px;
+}
+
+.mm-book__sprig--right {
+  right: -10px;
+  top: -30px;
+}
+
+.mm-book__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+  padding-inline: 0;
+  transition: min-height 0.7s var(--mm-ease-out);
+}
+
+.mm-book.is-open .mm-book__inner {
+  min-height: 520px;
+}
+
+/* Copy column ------------------------------------------------------------- */
+
+.mm-book__copy {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+  transition: width 0.8s var(--mm-ease-swift);
+}
+
+.mm-book.is-open .mm-book__copy {
+  width: calc(50% - 35px);
+}
+
+.mm-book__title {
+  max-width: 1080px;
+  font: 700 74px/1 var(--mm-font-display);
+  letter-spacing: -0.03em;
+  color: var(--mm-olive);
+  transition: max-width 0.8s var(--mm-ease-swift);
+}
+
+.mm-book.is-open .mm-book__title {
+  max-width: 100%;
+}
+
+.mm-book__bloom {
+  font-family: var(--mm-font-serif);
+  font-weight: 400;
+  font-style: italic;
+  color: #fff9ec;
+}
+
+.mm-book__lede {
+  max-width: 760px;
+  font: 400 20px/1.65 var(--mm-font-body);
+  color: var(--mm-book-ink);
+  transition: max-width 0.8s var(--mm-ease-swift);
+}
+
+.mm-book.is-open .mm-book__lede {
+  max-width: 520px;
+}
+
+.mm-book__points {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px 40px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mm-book.is-open .mm-book__points {
+  flex-direction: column;
+}
+
+.mm-book__points li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font: 700 18px var(--mm-font-body);
+  color: var(--mm-olive);
+}
+
+.mm-book__cta-wrap {
+  height: 86px;
+  overflow: hidden;
+  opacity: 1;
+  transform: translateY(0);
+  transition: height 0.5s var(--mm-ease-out), opacity 0.35s ease,
+    transform 0.5s var(--mm-ease-out);
+}
+
+.mm-book.is-open .mm-book__cta-wrap {
+  height: 0;
+  opacity: 0;
+  transform: translateY(-16px);
+}
+
+.mm-book__cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 40px;
+  border: 0;
+  border-radius: var(--mm-radius-pill);
+  cursor: pointer;
+  background: var(--mm-olive);
+  color: var(--mm-bone);
+  font: 700 19px var(--mm-font-body);
+  box-shadow: 0 18px 44px rgba(58, 45, 14, 0.28);
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.mm-book__cta:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+}
+
+/* Form panel -------------------------------------------------------------- */
+
+.mm-book__panel-slot {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  z-index: 1;
+  width: min(430px, calc(50% - 35px));
+  transform: translateY(-50%);
+  perspective: 1400px;
+}
+
+.mm-book__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 32px 30px;
+  border-radius: 20px;
+  background: var(--mm-olive-deep);
+  box-shadow: 0 24px 56px rgba(58, 45, 14, 0.26);
+  transform-origin: 0% 40%;
+  opacity: 0;
+  transform: translate(-58%, 46px) scale(0.62) rotate(-4deg);
+  pointer-events: none;
+  transition: opacity 0.55s ease, transform 0.8s var(--mm-ease-swift);
+}
+
+.mm-book.is-open .mm-book__panel {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.mm-book__panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.mm-book__panel-title {
+  font: 700 25px var(--mm-font-display);
+  letter-spacing: -0.02em;
+  color: var(--mm-bone);
+}
+
+.mm-book__panel-sub {
+  margin-top: 5px;
+  font: 400 15px var(--mm-font-body);
+  color: rgba(241, 236, 221, 0.62);
+}
+
+.mm-book__close {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(241, 236, 221, 0.1);
+  color: var(--mm-bone);
+  font: 400 17px var(--mm-font-body);
+  transition: background 0.25s ease;
+}
+
+.mm-book__close:hover {
+  background: rgba(241, 236, 221, 0.2);
+}
+
+.mm-book__panel input,
+.mm-book__panel textarea {
+  padding: 14px 20px;
+  border: 1px solid rgba(241, 236, 221, 0.14);
+  border-radius: var(--mm-radius-pill);
+  outline: none;
+  background: rgba(241, 236, 221, 0.09);
+  color: var(--mm-bone);
+  font: 400 15px var(--mm-font-body);
+  transition: border-color 0.25s ease;
+}
+
+.mm-book__panel textarea {
+  border-radius: 16px;
+  resize: vertical;
+}
+
+.mm-book__panel input::placeholder,
+.mm-book__panel textarea::placeholder {
+  color: rgba(241, 236, 221, 0.5);
+}
+
+.mm-book__panel input:focus,
+.mm-book__panel textarea:focus {
+  border-color: var(--mm-saffron);
+}
+
+.mm-book__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  border: 0;
+  border-radius: var(--mm-radius-pill);
+  cursor: pointer;
+  background: var(--mm-saffron);
+  color: #fff;
+  font: 700 16px var(--mm-font-body);
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.mm-book__submit:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .mm-book {
+    padding-block: 64px;
+  }
+
+  .mm-book__inner,
+  .mm-book.is-open .mm-book__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+    min-height: 0;
+  }
+
+  .mm-book__copy,
+  .mm-book.is-open .mm-book__copy {
+    width: 100%;
+  }
+
+  .mm-book.is-open .mm-book__points {
+    flex-direction: row;
+  }
+
+  .mm-book__panel-slot {
+    position: static;
+    width: 100%;
+    max-width: 460px;
+    transform: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s var(--mm-ease-out);
+  }
+
+  .mm-book.is-open .mm-book__panel-slot {
+    max-height: 620px;
+  }
+
+  .mm-book__panel {
+    transform: translateY(24px) scale(0.96);
+  }
+}
+
+@media (max-width: 700px) {
+  .mm-book__title {
+    font-size: 40px;
+  }
+
+  .mm-book__lede {
+    font-size: 17px;
+  }
+
+  .mm-book__points li {
+    font-size: 15px;
+  }
+
+  .mm-book__cta {
+    padding: 18px 28px;
+    font-size: 16px;
+  }
+}

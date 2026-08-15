@@ -1,0 +1,42 @@
+.mm-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mm-olive);
+  pointer-events: none;
+  animation: mm-intro-out 1.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.mm-intro__mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  animation: mm-intro-mark 1.9s ease forwards;
+}
+
+.mm-intro__mark img {
+  width: 96px;
+  height: 96px;
+}
+
+.mm-intro__mark .mm-mark--round {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mm-intro__mark .mm-mark--free {
+  width: auto;
+  height: 128px;
+  object-fit: contain;
+}
+
+.mm-intro__tagline {
+  font: 600 13px var(--mm-font-body);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--mm-saffron);
+}

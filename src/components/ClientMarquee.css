@@ -1,0 +1,87 @@
+.mm-marquee {
+  position: relative;
+  z-index: 2;
+  margin-top: -10px;
+  padding-block: 52px;
+  background: var(--mm-olive);
+}
+
+.mm-marquee__head {
+  padding-bottom: 30px;
+  font: 700 13px var(--mm-font-body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mm-saffron);
+}
+
+.mm-marquee__viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.mm-marquee__rail {
+  display: flex;
+  width: max-content;
+  animation: mm-marquee 34s linear infinite;
+}
+
+.mm-marquee__rail:hover {
+  animation-play-state: paused;
+}
+
+.mm-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding-right: 64px;
+}
+
+.mm-marquee__name {
+  font-size: 46px;
+  color: var(--mm-bone-soft);
+  white-space: nowrap;
+}
+
+.mm-marquee__name--bold {
+  font-family: var(--mm-font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mm-marquee__name--semi {
+  font-family: var(--mm-font-display);
+  font-weight: 600;
+}
+
+.mm-marquee__name--serif {
+  font-family: var(--mm-font-serif);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.mm-marquee__name--tracked {
+  font-family: var(--mm-font-body);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.mm-marquee__sep {
+  color: var(--mm-saffron);
+  font-size: 26px;
+}
+
+@media (max-width: 700px) {
+  .mm-marquee {
+    padding-block: 36px;
+  }
+
+  .mm-marquee__name {
+    font-size: 30px;
+  }
+
+  .mm-marquee__track {
+    gap: 40px;
+    padding-right: 40px;
+  }
+}

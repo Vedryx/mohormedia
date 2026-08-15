@@ -1,0 +1,133 @@
+.mm-studio {
+  display: flex;
+  gap: 56px;
+  align-items: center;
+  padding: 72px 56px;
+  border-top: 1px solid rgba(34, 38, 26, 0.12);
+}
+
+.mm-studio__art {
+  position: relative;
+  flex: 1;
+  min-height: 420px;
+}
+
+.mm-studio__blob {
+  position: absolute;
+  inset: 0;
+  background: var(--mm-sage);
+  border-radius: 62% 38% 56% 44% / 46% 56% 44% 54%;
+}
+
+.mm-studio__greeting {
+  position: absolute;
+  left: 17px;
+  top: 88px;
+  z-index: 3;
+  width: 205px;
+  font: 600 45px/0.95 var(--mm-font-script);
+  color: var(--mm-ink);
+}
+
+.mm-studio__dots {
+  position: absolute;
+  left: -10px;
+  bottom: 18px;
+  width: 130px;
+  height: 96px;
+  opacity: 0.6;
+  background-image: radial-gradient(var(--mm-saffron-warm) 1.7px, transparent 1.8px);
+  background-size: 13px 13px;
+}
+
+.mm-studio__doodle {
+  position: absolute;
+  right: -8px;
+  top: -18px;
+}
+
+.mm-studio__photo {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  bottom: 0;
+  width: 54%;
+  z-index: 1;
+}
+
+.mm-studio__copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mm-studio__title {
+  font: 700 46px/1.06 var(--mm-font-display);
+  letter-spacing: -0.03em;
+  color: var(--mm-olive);
+}
+
+.mm-studio__title .mm-italic {
+  font-size: inherit;
+}
+
+.mm-studio__body {
+  max-width: 480px;
+  font: 400 19px/1.65 var(--mm-font-body);
+  color: var(--mm-ink-soft);
+}
+
+.mm-studio__chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.mm-studio__chips .mm-chip {
+  letter-spacing: 0.16em;
+  padding: 8px 16px;
+}
+
+.mm-studio__link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 6px;
+  font: 600 18px var(--mm-font-body);
+  color: var(--mm-olive);
+}
+
+@media (max-width: 1000px) {
+  .mm-studio {
+    flex-direction: column;
+    gap: 40px;
+    padding: 56px var(--mm-gutter);
+  }
+
+  .mm-studio__art,
+  .mm-studio__copy {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .mm-studio__art {
+    min-height: 340px;
+  }
+
+  .mm-studio__greeting {
+    top: 52px;
+    font-size: 34px;
+    width: 160px;
+  }
+
+  .mm-studio__title {
+    font-size: 30px;
+  }
+
+  .mm-studio__body {
+    font-size: 16px;
+  }
+}

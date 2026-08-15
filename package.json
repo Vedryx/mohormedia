@@ -1,0 +1,20 @@
+{
+  "name": "mohormedia",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Mohor Media — marketing & advertising studio site, ported from the Claude Design canvas to React.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.7"
+  }
+}
