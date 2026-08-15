@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "api/book.js": { "maxDuration": 15 }
+  },
+  "rewrites": [
+    {
+      "source": "/((?!api/|assets/|.*\\.).*)",
+      "has": [{ "type": "host", "value": "contact.mohormedia.com" }],
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/((?!api/|assets/|.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
