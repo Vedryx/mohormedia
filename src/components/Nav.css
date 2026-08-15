@@ -5,11 +5,13 @@
   background: var(--mm-cream-nav);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--mm-olive-a08);
-  transition: box-shadow 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mm-nav.is-stuck {
-  box-shadow: 0 6px 30px rgba(34, 38, 26, 0.1);
+  background: var(--mm-olive);
+  border-bottom-color: rgba(241, 236, 221, 0.18);
+  box-shadow: 0 10px 34px rgba(34, 38, 26, 0.22);
 }
 
 .mm-nav__inner {
@@ -33,6 +35,12 @@
   color: var(--mm-ink);
 }
 
+.mm-nav.is-stuck .mm-nav__brand,
+.mm-nav.is-stuck .mm-nav__brand:hover,
+.mm-nav.is-stuck .mm-nav__links a {
+  color: var(--mm-bone);
+}
+
 .mm-nav__brand img {
   width: 46px;
   height: 46px;
@@ -50,6 +58,12 @@
   object-fit: contain;
 }
 
+.mm-nav.is-stuck .mm-nav__brand .mm-mark--free {
+  padding: 6px 9px;
+  border-radius: 12px;
+  background: var(--mm-bone);
+}
+
 .mm-nav__brand-accent {
   color: var(--mm-saffron);
 }
@@ -65,6 +79,10 @@
   align-items: center;
   gap: 30px;
   font: 500 16px var(--mm-font-body);
+}
+
+.mm-nav.is-stuck .mm-nav__links a:hover {
+  color: var(--mm-saffron);
 }
 
 /* Primary conversion point. Saffron rather than olive so it separates from the
@@ -207,6 +225,7 @@
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
+  transition: border-color 0.3s ease;
 }
 
 .mm-nav__toggle span {
@@ -215,7 +234,15 @@
   height: 1.6px;
   margin-inline: auto;
   background: var(--mm-olive);
-  transition: transform 0.3s var(--mm-ease-out);
+  transition: background 0.3s ease, transform 0.3s var(--mm-ease-out);
+}
+
+.mm-nav.is-stuck .mm-nav__toggle {
+  border-color: rgba(241, 236, 221, 0.4);
+}
+
+.mm-nav.is-stuck .mm-nav__toggle span {
+  background: var(--mm-bone);
 }
 
 .mm-nav__toggle[aria-expanded='true'] span:first-child {
