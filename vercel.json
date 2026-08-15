@@ -1,13 +1,7 @@
 {
   "rewrites": [
-    {
-      "source": "/((?!assets/|.*\\.).*)",
-      "has": [{ "type": "host", "value": "contact.mohormedia.com" }],
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/((?!assets/|.*\\.).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/contact/", "destination": "/contact.html" },
+    { "source": "/((?!assets/|contact\\.html|contact/?$|.*\\.).*)", "destination": "/index.html" }
   ]
 }
