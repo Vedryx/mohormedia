@@ -192,8 +192,8 @@ export const bookPoints = [
 
 export const contact = {
   email: 'hello@mohormedia.com',
-  phone: '+91 98220 00000',
-  phoneHref: '+919822000000',
+  phone: '+91 88558 78941',
+  phoneHref: '+918855878941',
   location: 'Pune, Maharashtra, India',
 };
 
