@@ -6,7 +6,7 @@ import './Footer.css';
 const socials = [
   {
     label: 'Instagram',
-    href: '#',
+    href: 'https://www.instagram.com/mohor.media',
     icon: (
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -17,7 +17,7 @@ const socials = [
   },
   {
     label: 'LinkedIn',
-    href: '#',
+    href: 'https://www.linkedin.com/company/mohor-media/',
     icon: (
       <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M4.5 8.5h3v11h-3zM6 4a1.8 1.8 0 1 1 0 3.6A1.8 1.8 0 0 1 6 4Zm4.5 4.5h3v1.6c.6-1 1.8-1.9 3.4-1.9 2.4 0 3.6 1.6 3.6 4.4v6.9h-3v-6.2c0-1.5-.6-2.3-1.8-2.3-1.3 0-2.2.9-2.2 2.4v6.1h-3Z" />
@@ -66,8 +66,8 @@ export default function Footer() {
             </p>
 
             <div className="mm-footer__socials">
-              {socials.map((social) => (
-                <a key={social.label} href={social.href} aria-label={social.label}>
+              {socials.filter((social) => social.href && social.href !== '#').map((social) => (
+                <a key={social.label} href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
                   {social.icon}
                 </a>
               ))}
