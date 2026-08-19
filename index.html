@@ -8,6 +8,27 @@
       name="description"
       content="Mohor Media is a full-service creative studio crafting brands, campaigns and stories people remember — rooted in insight, grown with craft."
     />
+    <meta name="theme-color" content="#2c3419" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://mohormedia.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mohor Media — Ideas that bloom into bold brands" />
+    <meta property="og:description" content="Full-service creative studio. Branding, digital marketing, performance ads, content & films." />
+    <meta property="og:url" content="https://mohormedia.com/" />
+    <meta property="og:site_name" content="Mohor Media" />
+    <meta property="og:image" content="https://mohormedia.com/mohor-logo.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="449" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mohor Media — Ideas that bloom into bold brands" />
+    <meta name="twitter:description" content="Full-service creative studio. Branding, digital marketing, performance ads, content & films." />
+    <meta name="twitter:image" content="https://mohormedia.com/mohor-logo.png" />
+
     <link rel="icon" type="image/png" href="/src/assets/mohor-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,6 +36,69 @@
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Caveat:wght@500;600&family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured Data: ProfessionalService + LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://mohormedia.com/#organization",
+          "name": "Mohor Media",
+          "url": "https://mohormedia.com/",
+          "logo": "https://mohormedia.com/mohor-logo.png",
+          "image": "https://mohormedia.com/mohor-logo.png",
+          "description": "Ideas that bloom into bold brands. A full-service creative studio crafting brands, campaigns and stories people remember — rooted in insight, grown with craft.",
+          "sameAs": [],
+          "telephone": "+918855878941",
+          "email": "hello@mohormedia.com",
+          "foundingDate": "2019",
+          "areaServed": "IN",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "",
+            "addressLocality": "Pune",
+            "addressRegion": "Maharashtra",
+            "addressCountry": "IN"
+          },
+          "priceRange": "$$"
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://mohormedia.com/#service",
+          "name": "Mohor Media — Branding & Marketing Services",
+          "provider": {
+            "@id": "https://mohormedia.com/#organization"
+          },
+          "url": "https://mohormedia.com/",
+          "knowsAbout": [
+            "Branding & Identity",
+            "Digital Marketing",
+            "Social Media",
+            "Performance Ads",
+            "Content & Films",
+            "Web & SEO"
+          ],
+          "areaServed": "IN",
+          "priceRange": "$$"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://mohormedia.com/#website",
+          "name": "Mohor Media",
+          "url": "https://mohormedia.com/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://mohormedia.com/?q={search_term_string}"
+            }
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
