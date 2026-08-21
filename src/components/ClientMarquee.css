@@ -37,33 +37,16 @@
   padding-right: 64px;
 }
 
-.mm-marquee__name {
-  font-size: 46px;
-  color: var(--mm-bone-soft);
-  white-space: nowrap;
-}
-
-.mm-marquee__name--bold {
-  font-family: var(--mm-font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.mm-marquee__name--semi {
-  font-family: var(--mm-font-display);
-  font-weight: 600;
-}
-
-.mm-marquee__name--serif {
-  font-family: var(--mm-font-serif);
-  font-weight: 400;
-  font-style: italic;
-}
-
-.mm-marquee__name--tracked {
-  font-family: var(--mm-font-body);
-  font-weight: 500;
-  letter-spacing: 0.14em;
+/* Each logo keeps the background its own artwork ships with, so the tile is the
+   image itself — no knockout needed for the navy, dark green and white sources.
+   Fixed height with auto width lets differing aspect ratios sit on one baseline. */
+.mm-marquee__logo {
+  flex: 0 0 auto;
+  display: block;
+  height: 100px;
+  width: auto;
+  border-radius: 12px;
+  user-select: none;
 }
 
 .mm-marquee__sep {
@@ -76,8 +59,9 @@
     padding-block: 36px;
   }
 
-  .mm-marquee__name {
-    font-size: 30px;
+  .mm-marquee__logo {
+    height: 58px;
+    border-radius: 9px;
   }
 
   .mm-marquee__track {

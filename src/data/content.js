@@ -1,6 +1,10 @@
 // All copy and structured content for the Mohor Media home page.
 // Editing text here is enough — no component needs to change.
 
+import wingwise from '../assets/clients/wingwise.jpg';
+import arka from '../assets/clients/arka.png';
+import rayDesignStudios from '../assets/clients/ray-design-studios.png';
+
 export const nav = [
   { label: 'What We Do', href: '#mm-craft' },
   { label: 'Studio', href: '#mm-team' },
@@ -14,13 +18,18 @@ export const heroStats = [
   { value: '6 yrs', label: 'Of quiet craft' },
 ];
 
+// Client logos. Each file is trimmed to its own artwork and keeps the
+// background the brand supplied (navy, dark green, white), so the marquee shows
+// them as tiles rather than trying to knock out backgrounds that are not
+// transparent in the source files.
+
+// width/height are the files' intrinsic pixel sizes. They are passed to the
+// <img> so the browser reserves the right box before a lazy image arrives —
+// without them the flex items collapse to zero width and the rail jumps.
 export const clients = [
-  { name: 'Saffron Street', style: 'bold' },
-  { name: 'Nimbu', style: 'serif' },
-  { name: 'Kala Craft Co.', style: 'semi' },
-  { name: 'TERRA & CO', style: 'tracked' },
-  { name: 'Rasa Labs', style: 'serif' },
-  { name: 'Vaidya', style: 'bold' },
+  { name: 'WingWise Aviation Academy', logo: wingwise, width: 400, height: 360 },
+  { name: 'Ray Design Studios', logo: rayDesignStudios, width: 290, height: 360 },
+  { name: 'Arka', logo: arka, width: 511, height: 360 },
 ];
 
 export const crafts = [
