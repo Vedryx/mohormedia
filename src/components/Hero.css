@@ -4,14 +4,29 @@
   overflow: hidden;
 }
 
+/* The मोहोर wordmark sitting behind the hero. It starts flush with the top of
+   the section, so its shirorekha meets the navbar, and its width is capped so
+   the right edge stops short of the art column — the blob and photo paint above
+   it, so anything past that point would be swallowed. 56vw keeps that clearance
+   from 981px up; below that the grid is single-column and it can run wider.
+   The gray export already carries its own 10% mask internally, so this stays at
+   1 and the artwork supplies the tint. Swapping back to the orange file (solid
+   #ff6300, no mask) means dropping --mm-watermark-opacity to about 0.13, or it
+   will render at full strength over the headline. */
 .mm-hero__watermark {
+  --mm-watermark-opacity: 1;
   position: absolute;
-  left: -40px;
-  top: -60px;
-  font: 700 400px/1 var(--mm-font-display);
-  letter-spacing: -0.03em;
-  color: rgba(58, 69, 38, 0.055);
-  white-space: nowrap;
+  left: 0;
+  top: 0;
+  width: min(730px, 56vw);
+  height: auto;
+  /* Tuck the top 30% of the matra under the navbar. The matra band measures 161
+     of the artwork's 567 units, so 30% of it is 48 units; the ink also starts
+     6 units below the image edge, making the needed shift 54 units = 9.6% of
+     the image height. A transform percentage resolves against the element's own
+     height, so this holds that exact 30% at every breakpoint as width changes. */
+  transform: translateY(-9.6%);
+  opacity: var(--mm-watermark-opacity);
   pointer-events: none;
   user-select: none;
 }
@@ -191,10 +206,6 @@
     font-size: 68px;
   }
 
-  .mm-hero__watermark {
-    font-size: 280px;
-  }
-
   .mm-hero__art {
     min-height: 520px;
   }
@@ -214,11 +225,26 @@
     min-height: 460px;
     transform: none !important;
   }
+
+  .mm-hero__watermark {
+    left: 3vw;
+    width: 94vw;
+  }
 }
 
 @media (max-width: 700px) {
+  /* On phones the wordmark sits BEHIND the headline, whole and uncropped.
+     Nothing may overlap its matras: the ो marks above the shirorekha are what
+     separate मोहोर from माहार, so clipping them changes the word. The headline
+     is only letterforms and reads through fine; the chip is an opaque pill and
+     must never sit over the mark. top: 88px centres the ink on the headline. */
   .mm-hero {
-    padding-top: 44px;
+    padding-top: 20px;
+  }
+
+  .mm-hero__watermark {
+    top: 88px;
+    transform: none;
   }
 
   .mm-hero__title {
@@ -227,11 +253,6 @@
 
   .mm-hero__lede {
     font-size: 17px;
-  }
-
-  .mm-hero__watermark {
-    font-size: 160px;
-    top: -20px;
   }
 
   .mm-hero__stats {
