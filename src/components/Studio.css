@@ -46,13 +46,77 @@
   top: -18px;
 }
 
+/* Founder photo, tilted in 3D toward the pointer ------------------------------
+   usePointerTilt writes --mm-rx/--mm-ry (degrees), --mm-gx/--mm-gy (glare
+   position) and --mm-tilt (0 at rest, 1 while pointing) onto .mm-studio__photo.
+   Everything below reads those. The depth comes from the plate and the card
+   sitting at different Z, so they shift by different amounts as it turns. */
 .mm-studio__photo {
   position: absolute;
   right: 22px;
   top: 22px;
   bottom: 0;
   width: 54%;
-  z-index: 1;
+  z-index: 2;
+  perspective: 900px;
+}
+
+.mm-studio__tilt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--mm-rx, 0deg)) rotateY(var(--mm-ry, 0deg));
+  transition: transform 0.5s var(--mm-ease-out);
+  animation: mm-studio-hover 7s ease-in-out infinite;
+}
+
+/* Backing plate, pushed away from the viewer and scaled back up so it still
+   reads as the same size — that mismatch is what parallaxes on tilt. */
+.mm-studio__plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: var(--mm-saffron);
+  transform: translateZ(-70px) scale(1.09);
+}
+
+.mm-studio__frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  transform: translateZ(30px);
+  box-shadow: 0 18px 40px rgba(34, 38, 26, 0.24),
+    calc(var(--mm-ry, 0deg) / 1deg * -1.6px) calc(var(--mm-rx, 0deg) / 1deg * 1.6px)
+      calc(38px + var(--mm-tilt, 0) * 34px) rgba(34, 38, 26, 0.26);
+  transition: box-shadow 0.5s var(--mm-ease-out);
+}
+
+/* Specular sweep that tracks the pointer, so the surface reads as glossy. */
+.mm-studio__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: calc(var(--mm-tilt, 0) * 0.55);
+  transition: opacity 0.5s ease;
+  background: radial-gradient(
+    38% 46% at var(--mm-gx, 50%) var(--mm-gy, 50%),
+    rgba(255, 252, 245, 0.62),
+    rgba(255, 252, 245, 0) 68%
+  );
+}
+
+@keyframes mm-studio-hover {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
 }
 
 .mm-studio__copy {
@@ -113,14 +177,25 @@
 }
 
 @media (max-width: 700px) {
+  /* The art block is full width here, so the greeting and the photo would sit
+     side by side and collide — the script is z-above the photo and became
+     unreadable over it once a real photograph replaced the placeholder. Stack
+     them instead: greeting across the top, photo starting below its baseline. */
   .mm-studio__art {
-    min-height: 340px;
+    min-height: 430px;
   }
 
   .mm-studio__greeting {
-    top: 52px;
-    font-size: 34px;
-    width: 160px;
+    top: 24px;
+    left: 14px;
+    width: 220px;
+    font-size: 32px;
+  }
+
+  .mm-studio__photo {
+    top: 116px;
+    right: 12px;
+    width: 62%;
   }
 
   .mm-studio__title {
@@ -129,5 +204,16 @@
 
   .mm-studio__body {
     font-size: 16px;
+  }
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .mm-studio__tilt {
+    transform: none;
+    animation: none;
+  }
+
+  .mm-studio__glare {
+    opacity: 0;
   }
 }
