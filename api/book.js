@@ -1,9 +1,6 @@
 import { appendRow } from '../lib/google-sheets.js';
 import { sendBookingAlert } from '../lib/notify.js';
 
-const SHEET_ID = process.env.GOOGLE_SHEET_ID;
-const SHEET_NAME = process.env.GOOGLE_SHEET_NAME || 'Sheet1';
-
 const LIMITS = { name: 120, email: 200, brief: 2000 };
 
 // A booking form is a slow, deliberate action. Anything faster than this is a
@@ -84,6 +81,11 @@ async function handleBooking(req, res) {
     return res.status(200).json({ ok: true });
   }
 
+  // Read env per request rather than at module load: in dev the middleware
+  // imports this file after Vite has populated process.env from .env.local.
+  const sheetId = process.env.GOOGLE_SHEET_ID;
+  const sheetName = process.env.GOOGLE_SHEET_NAME || 'Sheet1';
+
   const name = clean(body.name, LIMITS.name);
   const email = clean(body.email, LIMITS.email);
   const brief = clean(body.brief, LIMITS.brief);
@@ -93,7 +95,7 @@ async function handleBooking(req, res) {
     return res.status(400).json({ error: 'Please check your email address.' });
   }
 
-  if (!SHEET_ID) {
+  if (!sheetId) {
     console.error('GOOGLE_SHEET_ID is not configured');
     return res.status(500).json({ error: 'Something went wrong. Please email us instead.' });
   }
@@ -102,8 +104,8 @@ async function handleBooking(req, res) {
 
   try {
     await appendRow({
-      spreadsheetId: SHEET_ID,
-      sheetName: SHEET_NAME,
+      spreadsheetId: sheetId,
+      sheetName,
       // Column order must match the sheet's header row.
       values: [submittedAt, name, email, brief, req.headers['referer'] || ''],
     });

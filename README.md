@@ -154,6 +154,31 @@ Run the guards and request shapes without touching Google or Resend:
 npm run test:book
 ```
 
+### Trying it locally
+
+`npm run dev` serves the endpoint too. Vite's dev server knows nothing about
+Vercel Functions, so `vite-dev-api.js` mounts the same `api/` handlers as dev
+middleware — the local form runs the real code path, including a live write to
+the sheet. The plugin is `apply: 'serve'`, so it never reaches production,
+where Vercel runs `api/` itself.
+
+To write to the real sheet from localhost, put the credentials in `.env.local`
+(git-ignored — copy `.env.example`). Without it the form returns the generic
+error, because `GOOGLE_SHEET_ID` is unset.
+
+Check the wiring without any credentials:
+
+```bash
+curl -i -X POST localhost:5173/api/book -H 'content-type: application/json' -d '{"name":"Test","email":"a@b.com","elapsedMs":9000}'
+```
+
+A JSON error means the function is reachable. HTML means the request was served
+`index.html` instead, and the route is not mounted.
+
+Two things to expect: rows written from localhost land in the **real** sheet, so
+delete the test rows afterwards; and `elapsedMs` must be at least 2500 in a
+hand-made request, or the timing guard silently drops it.
+
 ### Setup
 
 1. **Google Cloud** → create a project → enable the **Google Sheets API**.
