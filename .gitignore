@@ -10,3 +10,8 @@ dist-ssr
 .env*.local
 !.env.example
 .claude/launch.json
+
+# Google service account key — never commit
+key.json
+*-key.json
+service-account*.json

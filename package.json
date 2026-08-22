@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:book": "node scripts/test-book-api.mjs"
+    "test:book": "node scripts/test-book-api.mjs",
+    "setup:sheet": "node scripts/setup-sheet.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",
