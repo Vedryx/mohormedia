@@ -4,3 +4,14 @@ dist-ssr
 .DS_Store
 *.local
 .vite
+
+.env
+.env.local
+.env*.local
+!.env.example
+.claude/launch.json
+
+# Google service account key — never commit
+key.json
+*-key.json
+service-account*.json

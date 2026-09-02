@@ -3,11 +3,13 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Mohor Media — marketing & advertising studio site, ported from the Claude Design canvas to React.",
+  "description": "Mohor Media \u2014 marketing & advertising studio site, ported from the Claude Design canvas to React.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:book": "node scripts/test-book-api.mjs",
+    "setup:sheet": "node scripts/setup-sheet.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",

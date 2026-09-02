@@ -313,3 +313,35 @@
     font-size: 16px;
   }
 }
+
+/* Honeypot — off-screen rather than display:none, since some bots skip fields
+   that are not rendered at all. */
+.mm-book__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.mm-book__submit:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.mm-book__submit:disabled:hover {
+  transform: none;
+  filter: none;
+}
+
+/* Reserves its line so the panel does not jump when a message appears. */
+.mm-book__status {
+  min-height: 1.2em;
+  margin: 0;
+  font: 500 13px/1.4 var(--mm-font-body);
+  color: rgba(241, 236, 221, 0.72);
+}
+
+.mm-book__status.is-error {
+  color: #ffd7a8;
+}

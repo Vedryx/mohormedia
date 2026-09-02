@@ -142,11 +142,85 @@ counterpart to the white ring the circle-cropped variant gets.
 | `motion` | `subtle`, `noticeable`, `showy` | reveal distance/duration and hero parallax |
 | `showIntro` | boolean | the full-screen logo curtain on load |
 
-## Not wired up
+## Booking form
 
-- **The "Book a Call" form does not submit anywhere.** `onSubmit` in
-  `src/components/BookCall.jsx` only flips to the thank-you label, matching the
-  design's stub. Point it at your form endpoint before launch.
+`POST /api/book` is a Vercel Function (`api/book.js`). It appends a row to a
+Google Sheet and emails an alert. There is no server to run — the function is
+deployed alongside the static site.
+
+Run the guards and request shapes without touching Google or Resend:
+
+```bash
+npm run test:book
+```
+
+### Trying it locally
+
+`npm run dev` serves the endpoint too. Vite's dev server knows nothing about
+Vercel Functions, so `vite-dev-api.js` mounts the same `api/` handlers as dev
+middleware — the local form runs the real code path, including a live write to
+the sheet. The plugin is `apply: 'serve'`, so it never reaches production,
+where Vercel runs `api/` itself.
+
+To write to the real sheet from localhost, put the credentials in `.env.local`
+(git-ignored — copy `.env.example`). Without it the form returns the generic
+error, because `GOOGLE_SHEET_ID` is unset.
+
+Check the wiring without any credentials:
+
+```bash
+curl -i -X POST localhost:5173/api/book -H 'content-type: application/json' -d '{"name":"Test","email":"a@b.com","elapsedMs":9000}'
+```
+
+A JSON error means the function is reachable. HTML means the request was served
+`index.html` instead, and the route is not mounted.
+
+Two things to expect: rows written from localhost land in the **real** sheet, so
+delete the test rows afterwards; and `elapsedMs` must be at least 2500 in a
+hand-made request, or the timing guard silently drops it.
+
+### Setup
+
+1. **Google Cloud** → create a project → enable the **Google Sheets API**.
+2. Create a **service account**, then a **JSON key** for it. The file contains
+   `client_email` and `private_key`.
+3. **Share the sheet with the service account's email**, as Editor. This is the
+   step people miss — the account has no implicit access, and without it every
+   append returns 403.
+4. Give the sheet a header row matching the column order the function writes:
+
+   | Timestamp | Name | Email | Brief | Referer |
+   | --- | --- | --- | --- | --- |
+
+5. Set the variables from `.env.example` in Vercel → Settings → Environment
+   Variables.
+
+### Email alerts
+
+Optional. Set `RESEND_API_KEY`, `BOOKING_ALERT_FROM` and `BOOKING_ALERT_TO`;
+leave them unset and bookings still reach the sheet, silently. The sender
+domain must be verified in Resend. Replying to an alert reaches the prospect —
+`reply_to` is set to their address.
+
+A failed alert never fails the booking: the row is already saved, and the
+visitor should not see an error about a notification they know nothing about.
+
+### Spam handling
+
+A hidden `company` field and a minimum fill time. Both respond `200` when
+tripped, so a bot gets no signal to adapt to, but nothing is written.
+
+This stops naive bots, not a determined one. If spam becomes a problem the next
+step is Vercel BotID or a rate limit backed by Upstash — a serverless function
+has no memory between invocations, so per-IP limiting needs a store.
+
+### Note on `vercel.json`
+
+The SPA catch-all rewrite now excludes `api/`. Without that exclusion,
+`/api/book` matches the catch-all pattern and can be served `index.html`
+instead of reaching the function.
+
+## Not wired up
 - Social links in the footer are `#` placeholders.
 - Work cards play a shutter/player flourish on click, as designed — they do not
   open a gallery, film, or episode yet.

@@ -4,19 +4,26 @@ import { bookPoints } from '../data/content';
 import { useReveal, revealClass } from '../hooks/useReveal';
 import './BookCall.css';
 
-const EMPTY = { name: '', email: '', brief: '' };
+const EMPTY = { name: '', email: '', brief: '', company: '' };
 
 export default function BookCall() {
   const { open, openBooking, closeBooking } = useBooking();
-  const [sent, setSent] = useState(false);
+  // idle | sending | sent | error
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
   const [form, setForm] = useState(EMPTY);
   const [ref, seen] = useReveal();
   const firstFieldRef = useRef(null);
+  const openedAt = useRef(0);
+
+  const sent = status === 'sent';
 
   // Land the visitor in the form when it opens — especially when they arrived
   // straight from the nav and the panel animated in beneath them.
   useEffect(() => {
     if (!open) return undefined;
+    // Start the clock the API checks against, to catch scripted submissions.
+    openedAt.current = Date.now();
     const timer = window.setTimeout(
       () => firstFieldRef.current?.focus({ preventScroll: true }),
       450,
@@ -24,17 +31,48 @@ export default function BookCall() {
     return () => window.clearTimeout(timer);
   }, [open]);
 
-  const update = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }));
+  const update = (field) => (event) => {
+    setForm((prev) => ({ ...prev, [field]: event.target.value }));
+    if (status === 'error') setStatus('idle');
+  };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    // No backend yet — see README for where to POST this.
-    setSent(true);
+    if (status === 'sending' || status === 'sent') return;
+
+    setStatus('sending');
+    setError('');
+
+    try {
+      const response = await fetch('/api/book', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...form, elapsedMs: Date.now() - openedAt.current }),
+      });
+      const payload = await response.json().catch(() => null);
+
+      // Success requires an explicit { ok: true }. A 200 carrying anything else
+      // means the request never reached the function — most likely the SPA
+      // catch-all rewrite served index.html — and reporting "Thanks" for a
+      // booking that was never stored is the worst outcome here.
+      if (!response.ok || !payload?.ok) {
+        setError(payload?.error || 'Something went wrong. Please email us instead.');
+        setStatus('error');
+        return;
+      }
+
+      setStatus('sent');
+    } catch {
+      // Offline, blocked, or the deploy is mid-rollout.
+      setError('Could not reach us just now. Please email hello@mohormedia.com.');
+      setStatus('error');
+    }
   };
 
   const close = () => {
     closeBooking();
-    setSent(false);
+    setStatus('idle');
+    setError('');
     setForm(EMPTY);
   };
 
@@ -122,9 +160,43 @@ export default function BookCall() {
               tabIndex={open ? 0 : -1}
             />
 
-            <button type="submit" className="mm-book__submit" tabIndex={open ? 0 : -1}>
-              {sent ? "Thanks — we'll reply within a day" : 'Submit'} <span aria-hidden="true">↗</span>
+            {/* Honeypot. Hidden from sight and from assistive tech, and taken
+                out of the tab order, so only a script fills it in. */}
+            <div className="mm-book__trap" aria-hidden="true">
+              <label htmlFor="mm-company">Company (leave this empty)</label>
+              <input
+                id="mm-company"
+                type="text"
+                name="company"
+                value={form.company}
+                onChange={update('company')}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="mm-book__submit"
+              tabIndex={open ? 0 : -1}
+              disabled={status === 'sending' || sent}
+            >
+              {status === 'sending'
+                ? 'Sending…'
+                : sent
+                  ? "Thanks — we'll reply within a day"
+                  : 'Submit'}{' '}
+              <span aria-hidden="true">{status === 'sending' ? '·' : '↗'}</span>
             </button>
+
+            {/* aria-live so the outcome is announced, not just shown. */}
+            <p
+              className={`mm-book__status${error ? ' is-error' : ''}`}
+              role="status"
+              aria-live="polite"
+            >
+              {error || (sent ? "Got it — we'll be in touch within one working day." : '')}
+            </p>
           </form>
         </div>
       </div>
