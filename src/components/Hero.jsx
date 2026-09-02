@@ -1,4 +1,5 @@
 import ImageSlot from './ImageSlot';
+import wordmark from '../assets/mohor-wordmark-gray.svg';
 import { useBooking } from '../BookingContext';
 import { heroStats } from '../data/content';
 import { useReveal, revealClass } from '../hooks/useReveal';
@@ -21,9 +22,7 @@ export default function Hero() {
 
   return (
     <section id="mm-top" className="mm-hero" aria-label="Hero">
-      <div className="mm-hero__watermark" aria-hidden="true">
-        मोहोर
-      </div>
+      <img className="mm-hero__watermark" src={wordmark} alt="" aria-hidden="true" />
 
       <div className="mm-hero__grid mm-shell">
         <div className="mm-hero__copy">

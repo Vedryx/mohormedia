@@ -1,10 +1,13 @@
 import ImageSlot from './ImageSlot';
+import teamPhoto from '../assets/mohor-team.jpg';
 import { studio } from '../data/content';
+import { usePointerTilt } from '../hooks/usePointerTilt';
 import { useReveal, revealClass } from '../hooks/useReveal';
 import './Studio.css';
 
 export default function Studio() {
   const [ref, seen] = useReveal();
+  const tiltRef = usePointerTilt();
 
   return (
     <section id="mm-team" className="mm-studio" aria-label="Who you'll work with">
@@ -29,14 +32,24 @@ export default function Studio() {
           <circle cx="53" cy="6" r="2.4" fill="#e8a020" />
         </svg>
 
-        <div className="mm-studio__photo">
-          <ImageSlot
-            id="team-greeting"
-            shape="rounded"
-            radius={10}
-            fit="cover"
-            placeholder="Drop your founder / team photo"
-          />
+        <div className="mm-studio__photo" ref={tiltRef}>
+          <div className="mm-studio__tilt">
+            {/* Saffron plate pushed back in Z — the parallax between it and the
+                photo is what reads as depth when the card turns. */}
+            <div className="mm-studio__plate" aria-hidden="true" />
+            <div className="mm-studio__frame">
+              <ImageSlot
+                id="team-greeting"
+                src={teamPhoto}
+                alt="The Mohor Media founders"
+                shape="rounded"
+                radius={14}
+                fit="cover"
+                editable={false}
+              />
+              <div className="mm-studio__glare" aria-hidden="true" />
+            </div>
+          </div>
         </div>
       </div>
 
