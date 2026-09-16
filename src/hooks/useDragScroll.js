@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 /**
  * Click-and-drag horizontal scrolling for the featured-work strip.
@@ -18,12 +18,13 @@ export function useDragScroll({ speed = 1.2 } = {}) {
     let startLeft = 0;
 
     const onPointerDown = (e) => {
+      if (e.target.closest("button, a, video, iframe, input")) return;
       if (e.button !== undefined && e.button !== 0) return;
       down = true;
       draggedRef.current = false;
       startX = e.pageX;
       startLeft = strip.scrollLeft;
-      strip.style.cursor = 'grabbing';
+      strip.style.cursor = "grabbing";
     };
 
     const onPointerMove = (e) => {
@@ -36,17 +37,17 @@ export function useDragScroll({ speed = 1.2 } = {}) {
 
     const onPointerUp = () => {
       down = false;
-      strip.style.cursor = 'grab';
+      strip.style.cursor = "grab";
     };
 
-    strip.addEventListener('mousedown', onPointerDown);
-    strip.addEventListener('mousemove', onPointerMove);
-    window.addEventListener('mouseup', onPointerUp);
+    strip.addEventListener("mousedown", onPointerDown);
+    strip.addEventListener("mousemove", onPointerMove);
+    window.addEventListener("mouseup", onPointerUp);
 
     return () => {
-      strip.removeEventListener('mousedown', onPointerDown);
-      strip.removeEventListener('mousemove', onPointerMove);
-      window.removeEventListener('mouseup', onPointerUp);
+      strip.removeEventListener("mousedown", onPointerDown);
+      strip.removeEventListener("mousemove", onPointerMove);
+      window.removeEventListener("mouseup", onPointerUp);
     };
   }, [speed]);
 

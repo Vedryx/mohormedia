@@ -3,20 +3,29 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Mohor Media \u2014 marketing & advertising studio site, ported from the Claude Design canvas to React.",
+  "description": "Mohor Media — marketing & advertising studio site, ported from the Claude Design canvas to React.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test:book": "node scripts/test-book-api.mjs",
-    "setup:sheet": "node scripts/setup-sheet.mjs"
+    "setup:sheet": "node scripts/setup-sheet.mjs",
+    "test:e2e": "playwright test",
+    "test": "node --test tests/*.test.js && npm run test:book",
+    "db:start": "docker compose up -d",
+    "db:stop": "docker compose stop"
   },
   "dependencies": {
+    "jose": "^6.2.12",
+    "mongodb": "^7.6.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "prettier": "^3.9.7",
     "vite": "^6.0.7"
   }
 }

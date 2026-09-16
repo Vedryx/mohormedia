@@ -15,3 +15,8 @@ dist-ssr
 key.json
 *-key.json
 service-account*.json
+
+artifacts/
+test-results/
+playwright-report/
+.vercel/
