@@ -10,7 +10,13 @@
  * plugin is never involved.
  */
 const ROUTES = {
-  '/api/book': () => import('./api/book.js'),
+  "/api/admin/login": () => import("./api/admin/login.js"),
+  "/api/admin/logout": () => import("./api/admin/logout.js"),
+  "/api/admin/content": () => import("./api/admin/content.js"),
+  "/api/admin/uploads": () => import("./api/admin/uploads.js"),
+  "/api/content": () => import("./api/content.js"),
+  "/api/media": () => import("./api/media.js"),
+  "/api/book": () => import("./api/book.js"),
 };
 
 /**
@@ -23,7 +29,7 @@ function shimResponse(res) {
     return res;
   };
   res.json = (payload) => {
-    res.setHeader('content-type', 'application/json');
+    res.setHeader("content-type", "application/json");
     res.end(JSON.stringify(payload));
     return res;
   };
@@ -32,20 +38,35 @@ function shimResponse(res) {
 
 export function devApi() {
   return {
-    name: 'mm-dev-api',
-    apply: 'serve',
+    name: "mm-dev-api",
+    apply: "serve",
     configureServer(server) {
       for (const [route, load] of Object.entries(ROUTES)) {
         server.middlewares.use(route, async (req, res, next) => {
           try {
-            // Imported per request so edits to the handler take effect without
-            // restarting the dev server.
+            // Run the same handler exported to Vercel. Restart Vite after backend edits.
             const mod = await load();
+            if (req.url.split("?")[0] !== "/" && req.url.split("?")[0] !== "")
+              return next();
+            // Connect strips the mount path; restore it for query parsing.
+            const relativeUrl = req.url;
+            req.url =
+              route +
+              (relativeUrl.startsWith("/?")
+                ? relativeUrl.slice(1)
+                : relativeUrl === "/"
+                  ? ""
+                  : relativeUrl);
             await mod.default(req, shimResponse(res));
+            req.url = relativeUrl;
           } catch (error) {
-            server.config.logger.error(`[dev-api] ${route} failed: ${error.stack}`);
+            server.config.logger.error(
+              `[dev-api] ${route} failed: ${error.stack}`,
+            );
             if (!res.headersSent) {
-              shimResponse(res).status(500).json({ error: 'Dev API handler threw' });
+              shimResponse(res)
+                .status(500)
+                .json({ error: "Dev API handler threw" });
             } else {
               next(error);
             }

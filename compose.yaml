@@ -1,0 +1,17 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: mohormedia-mongodb
+    ports:
+      - "127.0.0.1:27020:27017"
+    volumes:
+      - mohor_mongodb:/data/db
+    restart: unless-stopped
+    healthcheck:
+      test:
+        ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  mohor_mongodb:
