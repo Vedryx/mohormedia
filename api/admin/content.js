@@ -34,7 +34,10 @@ export default endpoint(async (req, res) => {
   if (req.method === "PUT") {
     const checked = validateItem(body.item, section);
     if (checked.error) throw new HttpError(checked.error, 400);
-    await verifyMedia(checked.item);
+    // Only a publish needs its media to resolve. Re-checking on every write
+    // trapped items whose upload had gone missing: they could not be saved as
+    // a draft to take them off the website, only deleted outright.
+    if (checked.item.status === "published") await verifyMedia(checked.item);
     const index = items.findIndex((i) => i.id === checked.item.id);
     if (index < 0) {
       if (items.length >= 200)

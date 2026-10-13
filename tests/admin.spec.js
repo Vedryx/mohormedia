@@ -518,6 +518,65 @@ test("stale editor and failed saves never claim published or redirect sections",
   await expect(page.getByRole("status")).toHaveCount(0);
 });
 
+test("an item whose upload has gone missing can still be unpublished", async ({
+  request,
+}) => {
+  expect(
+    (
+      await request.post("/api/admin/login", {
+        headers: { Origin: origin },
+        data: credentials,
+      })
+    ).status(),
+  ).toBe(200);
+
+  // Read once so the document seeds before it is edited behind the API's back.
+  await request.get("/api/admin/content");
+
+  // A published item pointing at media that is no longer in the bucket: the
+  // state left behind when an upload is lost. Planted directly, since the API
+  // would rightly refuse to publish it.
+  const orphan = item("Orphaned media project", {
+    kind: "image",
+    mediaUrl: "/api/media?id=0123456789abcdef01234567",
+    alt: "A project still",
+  });
+  await db
+    .collection("site_content")
+    .updateOne(
+      { _id: "main" },
+      { $push: { work: orphan }, $inc: { revision: 1 } },
+    );
+
+  const content = await (await request.get("/api/admin/content")).json();
+  expect(
+    (await (await request.get("/api/content")).json()).work,
+  ).toHaveLength(1);
+
+  // Taking it off the website must work — media only has to resolve to publish.
+  const unpublished = await request.put("/api/admin/content", {
+    headers: { Origin: origin },
+    data: {
+      section: "work",
+      revision: content.revision,
+      item: { ...orphan, status: "draft" },
+    },
+  });
+  expect(unpublished.status()).toBe(200);
+  expect((await (await request.get("/api/content")).json()).work).toEqual([]);
+
+  // ...but it still cannot go back on the website while the media is missing.
+  const republished = await request.put("/api/admin/content", {
+    headers: { Origin: origin },
+    data: {
+      section: "work",
+      revision: (await unpublished.json()).revision,
+      item: { ...orphan, status: "published" },
+    },
+  });
+  expect(republished.status()).toBe(400);
+});
+
 test("API validation, CSRF, draft privacy, upload protections and login rate limit", async ({
   request,
 }) => {
