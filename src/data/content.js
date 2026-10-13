@@ -35,41 +35,48 @@ export const clients = [
 export const crafts = [
   {
     number: '01',
+    title: 'Podcast Studio',
+    description:
+      'A room, a mic and an edit bay — shows that build authority episode after episode.',
+    tags: ['Recording', 'Editing', 'Distribution'],
+  },
+  {
+    number: '02',
     title: 'Branding & Identity',
     description:
       'Logos, systems and stories that give your brand a face worth remembering.',
     tags: ['Logo & visual identity', 'Brand strategy', 'Naming'],
   },
   {
-    number: '02',
+    number: '03',
     title: 'Digital Marketing',
     description:
       'Full-funnel campaigns that turn scrolls into stops, and stops into sales.',
     tags: ['Campaigns', 'Funnels', 'Email'],
   },
   {
-    number: '03',
+    number: '04',
     title: 'Social Media',
     description:
       'Feeds with a pulse — content calendars, community and everyday relevance.',
     tags: ['Content', 'Community', 'Reels'],
   },
   {
-    number: '04',
+    number: '05',
     title: 'Performance Ads',
     description:
       'Meta, Google and beyond — media buying obsessed with return, not reach.',
     tags: ['Meta ads', 'Google ads', 'ROAS'],
   },
   {
-    number: '05',
+    number: '06',
     title: 'Content & Films',
     description:
       "Scripts, shoots and edits that don't need an agency reel to prove they work.",
     tags: ['Brand films', 'Photography', 'Editing'],
   },
   {
-    number: '06',
+    number: '07',
     title: 'Web & SEO',
     description:
       'Sites that load fast, read clearly and get found without paying for every click.',
@@ -156,40 +163,31 @@ export const studio = {
   headline: 'A small team that treats your budget like ',
   headlineItalic: 'its own.',
   body: 'No account managers relaying messages. You work directly with the strategist, the media buyer and the director who make your campaigns — from the first call to the last cut.',
-  chips: ['Pune-based', 'Since 2019', '7 people'],
+  chips: ['Pune-based', '7 people'],
 };
 
 export const stories = [
   {
-    id: 'v2-story-1',
-    tab: "Priya's story",
+    id: 'story-aproop',
+    tab: "Samruddhi's story",
     quote:
-      '"Mohor didn\'t just redesign our brand — they made people feel something about a family restaurant again. Footfall is up 40% and our packaging gets photographed more than our food."',
-    author: 'Priya Sharma',
-    role: 'Founder, Saffron Street Eatery',
-    kind: 'video',
-    runtime: '1 min 12 sec',
-    placeholder: 'Priya — video still or photo',
-  },
-  {
-    id: 'v2-story-2',
-    tab: "Vikram's story",
-    quote:
-      '"We had spent two years buying clicks that went nowhere. Mohor rebuilt the funnel from the message down — same budget, 3.2× the return, and reports I can actually read."',
-    author: 'Vikram Desai',
-    role: "Director, Baker's Dozen",
-    kind: 'photo',
-    placeholder: 'Vikram — video still or photo',
-  },
-  {
-    id: 'v2-story-3',
-    tab: "Neha's story",
-    quote:
-      '"They filmed for three days and somehow captured what we had been failing to explain for three years. Direct bookings are up 48% and we finally sound like ourselves."',
-    author: 'Neha Kulkarni',
-    role: 'Co-founder, Vaidya Wellness',
+      '"Mohor took the time to understand what we actually make before they said a word about how to sell it. The work came back sharper than our own brief, and it still sounds like us."',
+    author: 'Samruddhi Kuchik',
+    role: 'Aproop Productions',
+    link: 'https://aproopproductions.com',
     kind: 'text',
-    placeholder: 'Neha — video still or photo',
+    placeholder: 'Samruddhi — video still or photo',
+  },
+  {
+    id: 'story-vedryx',
+    tab: "Dev's story",
+    quote:
+      '"We build software, not brands — so we handed that half to Mohor. Clear thinking, quick turnarounds, and none of the agency theatre. They are the team we point our own clients to."',
+    author: 'Dev Saini',
+    role: 'VedryxTech',
+    link: 'https://vedryxtech.com',
+    kind: 'text',
+    placeholder: 'Dev — video still or photo',
   },
 ];
 
@@ -201,15 +199,25 @@ export const bookPoints = [
 
 export const contact = {
   email: 'hello@mohormedia.com',
-  phone: '+91 88558 78941',
-  phoneHref: '+918855878941',
+  // Both studio lines. `href` is the dial string; `label` is what the footer shows.
+  phones: [
+    { label: '+91 88558 78941', href: '+918855878941' },
+    { label: '+91 87666 97127', href: '+918766697127' },
+  ],
   location: 'Pune, Maharashtra, India',
+  // Office address, one line per rendered row in the footer.
+  addressLines: [
+    '4th floor, Renuka Sankalpa Appt.,',
+    'Bhoir colony, Chinchwad - 411033',
+    'Pune, Maharashtra, India',
+  ],
 };
 
 export const footerColumns = [
   {
     title: 'Services',
     links: [
+      { label: 'Podcast Studio', href: '#mm-craft' },
       { label: 'Branding & Identity', href: '#mm-craft' },
       { label: 'Digital Marketing', href: '#mm-craft' },
       { label: 'Social Media', href: '#mm-craft' },

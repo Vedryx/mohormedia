@@ -5,7 +5,7 @@ export default function ClientMarquee() {
   const { brands } = useContent();
   if (!brands.length) return null;
   return (
-    <section className="mm-marquee" aria-label="Brands we've helped bloom">
+    <section id="mm-brands" className="mm-marquee" aria-label="Brands we've helped bloom">
       <div className="mm-shell">
         <div className="mm-marquee__head">Brands we&apos;ve helped bloom</div>
         <div className="mm-brand-grid">

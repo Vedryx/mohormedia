@@ -77,7 +77,7 @@ export default function Craft() {
               <span>What we do</span>
             </div>
             <h2 className="mm-section-title mm-craft__title">
-              Six crafts.
+              Seven crafts.
               <br />
               One <span className="mm-italic">obsession</span> — growth.
             </h2>

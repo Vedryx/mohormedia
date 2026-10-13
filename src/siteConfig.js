@@ -3,7 +3,7 @@
 
 export const siteConfig = {
   /** Show the 30+ / 120+ / 6 yrs row under the hero copy. */
-  showHeroStats: true,
+  showHeroStats: false,
 
   /**
    * Force every client story to render as a given media kind.
@@ -16,6 +16,9 @@ export const siteConfig = {
 
   /** Play the full-screen logo intro on first load. */
   showIntro: true,
+
+  /** Temporarily hide the Featured Work section without removing its component or content. */
+  showFeaturedWork: false,
 };
 
 export const motionPresets = {

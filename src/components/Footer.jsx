@@ -98,24 +98,38 @@ export default function Footer() {
               </svg>
               {contact.email}
             </a>
-            <a href={`tel:${contact.phoneHref}`}>
-              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#e2913f" strokeWidth="1.7" aria-hidden="true">
-                <path d="M5 4h3l2 5-2 1a10 10 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
-              </svg>
-              {contact.phone}
-            </a>
+            {contact.phones.map((phone) => (
+              <a key={phone.href} href={`tel:${phone.href}`}>
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#e2913f" strokeWidth="1.7" aria-hidden="true">
+                  <path d="M5 4h3l2 5-2 1a10 10 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+                </svg>
+                {phone.label}
+              </a>
+            ))}
             <div className="mm-footer__static">
               <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#e2913f" strokeWidth="1.7" aria-hidden="true">
                 <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" />
                 <circle cx="12" cy="10" r="2.5" />
               </svg>
-              {contact.location}
+              <address className="mm-footer__address">
+                {contact.addressLines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </address>
             </div>
           </div>
         </div>
 
         <div className="mm-footer__base">
-          <div>© {new Date().getFullYear()} Mohor Media. Grown with care in India.</div>
+          <div className="mm-footer__legal">
+            <div>© {new Date().getFullYear()} Mohor Media. Grown with care in India.</div>
+            <div className="mm-footer__credit">
+              Website created by{' '}
+              <a href="https://vedryxtech.com" target="_blank" rel="noopener noreferrer">
+                vedryxtech.com
+              </a>
+            </div>
+          </div>
           <div className="mm-footer__sign">
             <span aria-hidden="true">✿</span>Ideas that bloom into bold brands.
           </div>

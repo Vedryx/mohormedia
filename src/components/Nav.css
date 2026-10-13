@@ -84,6 +84,14 @@
   font: 500 16px var(--mm-font-body);
 }
 
+/* The 46px brand mark sets the row height, so padding here buys a 44px tap
+   target without making the bar any taller. */
+.mm-nav__links a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+
 .mm-nav.is-stuck .mm-nav__links a:hover {
   color: var(--mm-saffron);
 }

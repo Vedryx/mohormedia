@@ -146,14 +146,31 @@
   position: absolute;
   right: -16px;
   top: 96px;
-  padding: 20px 26px;
+  width: 272px;
+  /* The photo runs flush to the top edge, so the padding lives on the text rows
+     below it rather than on the card. overflow:hidden clips the shot to the
+     rounded corners. */
+  padding-bottom: 18px;
+  overflow: hidden;
   background: var(--mm-paper);
   border-radius: 14px;
   box-shadow: 0 16px 40px rgba(34, 38, 26, 0.16);
   animation: mm-float 5.5s ease-in-out infinite;
 }
 
+/* The box matches the file's own 1311x704 ratio, so `cover` scales without
+   cropping — both armchairs stay in frame at every width. */
+.mm-hero__card-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1311 / 704;
+  object-fit: cover;
+}
+
 .mm-hero__card-label {
+  margin-top: 16px;
+  padding-inline: 22px;
   font: 700 12px var(--mm-font-body);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -162,6 +179,7 @@
 
 .mm-hero__card-title {
   margin-top: 7px;
+  padding-inline: 22px;
   font: 600 21px var(--mm-font-display);
   color: var(--mm-ink);
 }
@@ -275,10 +293,17 @@
 
   .mm-hero__card {
     right: 0;
-    padding: 14px 18px;
+    width: 212px;
+    padding-bottom: 14px;
+  }
+
+  .mm-hero__card-label {
+    margin-top: 12px;
+    padding-inline: 16px;
   }
 
   .mm-hero__card-title {
+    padding-inline: 16px;
     font-size: 17px;
   }
 

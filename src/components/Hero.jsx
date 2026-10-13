@@ -1,5 +1,7 @@
 import ImageSlot from './ImageSlot';
 import wordmark from '../assets/mohor-wordmark-gray.svg';
+import podcastStudio from '../assets/podcast-studio.jpg';
+import studioRoom from '../assets/studio-room.jpg';
 import { useBooking } from '../BookingContext';
 import { heroStats } from '../data/content';
 import { useReveal, revealClass } from '../hooks/useReveal';
@@ -30,7 +32,7 @@ export default function Hero() {
             <span className="mm-hero__badge-mark" aria-hidden="true">
               ✦
             </span>
-            <span>Marketing &amp; Advertising Studio</span>
+            <span>Marketing &amp; Media Agency</span>
           </div>
 
           <h1 ref={titleRef} className={revealClass(titleSeen, 'mm-hero__title')}>
@@ -46,7 +48,7 @@ export default function Hero() {
             <a className="mm-btn mm-btn--saffron" href="#mm-book" onClick={openBooking}>
               Book a Free Call <span aria-hidden="true">↗</span>
             </a>
-            <a className="mm-btn mm-btn--ghost" href="#mm-work">
+            <a className="mm-btn mm-btn--ghost" href="#mm-brands">
               See Our Work
             </a>
           </div>
@@ -71,13 +73,22 @@ export default function Hero() {
               id="v2-hero"
               shape="rect"
               fit="cover"
-              placeholder="Drop the studio / team-at-work photo"
+              src={studioRoom}
+              alt="The Mohor Media studio — two wooden armchairs on a patterned red rug, with a lamp, bookshelf and studio light around a sage-green wall."
+              editable={false}
             />
           </div>
 
           <div className="mm-hero__card">
+            <img
+              className="mm-hero__card-photo"
+              src={podcastStudio}
+              width="1311"
+              height="704"
+              alt="The Mohor Media podcast studio — two wooden armchairs facing each other on a red rug, framed by a sage wall and warm lamp light."
+            />
             <div className="mm-hero__card-label">Currently blooming</div>
-            <div className="mm-hero__card-title">Saffron Street Rebrand</div>
+            <div className="mm-hero__card-title">Mohor Media</div>
           </div>
 
           <div className="mm-hero__seal" aria-hidden="true">
