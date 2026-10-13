@@ -13,6 +13,17 @@ body {
   background: var(--mm-cream);
 }
 
+/* In-page links glide instead of jumping. The reduced-motion block below resets
+   this to auto. The nav is sticky, so anchored sections hold their own offset
+   clear of it (52px row + 14px padding-block, plus breathing room). */
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 92px;
+}
+
 body {
   color: var(--mm-ink);
   font-family: var(--mm-font-body);

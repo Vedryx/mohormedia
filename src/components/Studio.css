@@ -155,9 +155,10 @@
 }
 
 .mm-studio__link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 9px;
+  min-height: 44px;
   margin-top: 6px;
   font: 600 18px var(--mm-font-body);
   color: var(--mm-olive);
